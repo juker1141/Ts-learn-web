@@ -1,5 +1,3 @@
-
-
 type Callback = () => void;
 
 export class Eventing {
@@ -7,7 +5,9 @@ export class Eventing {
     [key: string]: Callback[],
   } = {};
 
-  on(eventName: string, callback: Callback): void {
+  // 使用 arrow Function 這樣他就沒有自己的 this
+  // 會呼叫他父元素身上的 this
+  on = (eventName: string, callback: Callback): void => {
     const handlers = this.events[eventName] || [];
 
     handlers.push(callback);
@@ -15,7 +15,9 @@ export class Eventing {
     this.events[eventName] = handlers;
   };
 
-  trigger(eventName: string): void {
+  // 使用 arrow Function 這樣他就沒有自己的 this
+  // 會呼叫他父元素身上的 this
+  trigger = (eventName: string): void => {
     const handlers = this.events[eventName];
 
     if (!handlers || handlers.length === 0) return;

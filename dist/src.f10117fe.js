@@ -129,26 +129,28 @@ var Eventing =
 /** @class */
 function () {
   function Eventing() {
-    this.events = {};
+    var _this = this;
+
+    this.events = {}; // 使用 arrow Function 這樣他就沒有自己的 this
+    // 會呼叫他父元素身上的 this
+
+    this.on = function (eventName, callback) {
+      var handlers = _this.events[eventName] || [];
+      handlers.push(callback);
+      _this.events[eventName] = handlers;
+    }; // 使用 arrow Function 這樣他就沒有自己的 this
+    // 會呼叫他父元素身上的 this
+
+
+    this.trigger = function (eventName) {
+      var handlers = _this.events[eventName];
+      if (!handlers || handlers.length === 0) return;
+      handlers.forEach(function (callback) {
+        callback();
+      });
+    };
   }
 
-  Eventing.prototype.on = function (eventName, callback) {
-    var handlers = this.events[eventName] || [];
-    handlers.push(callback);
-    this.events[eventName] = handlers;
-  };
-
-  ;
-
-  Eventing.prototype.trigger = function (eventName) {
-    var handlers = this.events[eventName];
-    if (!handlers || handlers.length === 0) return;
-    handlers.forEach(function (callback) {
-      callback();
-    });
-  };
-
-  ;
   return Eventing;
 }();
 
@@ -1230,7 +1232,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-},{"./../utils":"node_modules/axios/lib/utils.js","./../core/settle":"node_modules/axios/lib/core/settle.js","./../helpers/cookies":"node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"node_modules/axios/lib/core/createError.js","../defaults/transitional":"node_modules/axios/lib/defaults/transitional.js","../cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js"}],"../../../../usr/local/Cellar/nvm/0.38.0/versions/node/v14.18.0/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{"./../utils":"node_modules/axios/lib/utils.js","./../core/settle":"node_modules/axios/lib/core/settle.js","./../helpers/cookies":"node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"node_modules/axios/lib/core/createError.js","../defaults/transitional":"node_modules/axios/lib/defaults/transitional.js","../cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -1573,7 +1575,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-},{"../utils":"node_modules/axios/lib/utils.js","../helpers/normalizeHeaderName":"node_modules/axios/lib/helpers/normalizeHeaderName.js","../core/enhanceError":"node_modules/axios/lib/core/enhanceError.js","./transitional":"node_modules/axios/lib/defaults/transitional.js","../adapters/xhr":"node_modules/axios/lib/adapters/xhr.js","../adapters/http":"node_modules/axios/lib/adapters/xhr.js","process":"../../../../usr/local/Cellar/nvm/0.38.0/versions/node/v14.18.0/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/axios/lib/core/transformData.js":[function(require,module,exports) {
+},{"../utils":"node_modules/axios/lib/utils.js","../helpers/normalizeHeaderName":"node_modules/axios/lib/helpers/normalizeHeaderName.js","../core/enhanceError":"node_modules/axios/lib/core/enhanceError.js","./transitional":"node_modules/axios/lib/defaults/transitional.js","../adapters/xhr":"node_modules/axios/lib/adapters/xhr.js","../adapters/http":"node_modules/axios/lib/adapters/xhr.js","process":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/axios/lib/core/transformData.js":[function(require,module,exports) {
 'use strict';
 
 var utils = require('./../utils');
@@ -2308,7 +2310,48 @@ function () {
 
 exports.Sync = Sync;
 ;
-},{"axios":"node_modules/axios/index.js"}],"src/models/User.ts":[function(require,module,exports) {
+},{"axios":"node_modules/axios/index.js"}],"src/models/Attributes.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Attributes = void 0;
+
+var Attributes =
+/** @class */
+function () {
+  function Attributes(data) {
+    var _this = this;
+
+    this.data = data; // 泛型: K 是 T 物件的一個 key 值
+    // 以 UserProps 來說會是 name age id
+    // 使用 arrow Function 這樣他就沒有自己的 this
+    // 會呼叫他父元素身上的 this
+
+    this.get = function (key) {
+      return _this.data[key];
+    };
+  }
+
+  ;
+
+  Attributes.prototype.set = function (update) {
+    Object.assign(this.data, update);
+  };
+
+  ;
+
+  Attributes.prototype.getAll = function () {
+    return this.data;
+  };
+
+  return Attributes;
+}();
+
+exports.Attributes = Attributes;
+;
+},{}],"src/models/User.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2320,37 +2363,82 @@ var Eventing_1 = require("./Eventing");
 
 var Sync_1 = require("./Sync");
 
+var Attributes_1 = require("./Attributes");
+
 ;
 var rootUrl = "http://localhost:3000/users";
 
 var User =
 /** @class */
 function () {
-  function User(data) {
-    this.data = data;
+  function User(attrs) {
     this.events = new Eventing_1.Eventing();
     this.sync = new Sync_1.Sync(rootUrl);
+    this.attributes = new Attributes_1.Attributes(attrs);
   }
 
+  Object.defineProperty(User.prototype, "on", {
+    get: function get() {
+      return this.events.on;
+    },
+    enumerable: false,
+    configurable: true
+  });
   ;
-
-  User.prototype.get = function (propName) {
-    return this.data[propName];
-  };
-
+  Object.defineProperty(User.prototype, "trigger", {
+    get: function get() {
+      return this.events.trigger;
+    },
+    enumerable: false,
+    configurable: true
+  });
+  ;
+  Object.defineProperty(User.prototype, "get", {
+    get: function get() {
+      return this.attributes.get;
+    },
+    enumerable: false,
+    configurable: true
+  });
   ;
 
   User.prototype.set = function (update) {
-    Object.assign(this.data, update);
+    this.attributes.set(update);
+    this.events.trigger("change");
   };
 
   ;
+
+  User.prototype.fetch = function () {
+    var _this = this;
+
+    var id = this.get("id");
+
+    if (typeof id !== "number") {
+      throw new Error("Cannot fetch without an id");
+    }
+
+    this.sync.fetch(id).then(function (res) {
+      _this.set(res.data);
+    });
+  };
+
+  User.prototype.save = function () {
+    var _this = this;
+
+    this.sync.save(this.attributes.getAll()).then(function (res) {
+      _this.trigger("save");
+    }).catch(function () {
+      _this.trigger("error");
+    });
+  };
+
   return User;
 }();
 
 exports.User = User;
 ;
-},{"./Eventing":"src/models/Eventing.ts","./Sync":"src/models/Sync.ts"}],"src/index.ts":[function(require,module,exports) {
+},{"./Eventing":"src/models/Eventing.ts","./Sync":"src/models/Sync.ts","./Attributes":"src/models/Attributes.ts"}],"src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2360,14 +2448,15 @@ Object.defineProperty(exports, "__esModule", {
 var User_1 = require("./models/User");
 
 var user = new User_1.User({
-  id: 1
+  id: 1,
+  name: "john",
+  age: 234
 });
-user.set({
-  name: "jay",
-  age: 45
+user.on("save", function () {
+  console.log(user);
 });
 user.save();
-},{"./models/User":"src/models/User.ts"}],"../../../../usr/local/Cellar/nvm/0.38.0/versions/node/v14.18.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./models/User":"src/models/User.ts"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2395,7 +2484,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52963" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "10210" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -2426,9 +2515,8 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         assetsToAccept.forEach(function (v) {
           hmrAcceptRun(v[0], v[1]);
         });
-      } else if (location.reload) {
-        // `location` global exists in a web worker context but lacks `.reload()` function.
-        location.reload();
+      } else {
+        window.location.reload();
       }
     }
 
@@ -2571,5 +2659,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../usr/local/Cellar/nvm/0.38.0/versions/node/v14.18.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.ts"], null)
+},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.ts"], null)
 //# sourceMappingURL=/src.f10117fe.js.map
