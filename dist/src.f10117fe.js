@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"src/views/UserForm.ts":[function(require,module,exports) {
+})({"src/views/View.ts":[function(require,module,exports) {
 "use strict";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -141,59 +141,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.UserForm = void 0;
+exports.View = void 0;
 
-var UserForm = /*#__PURE__*/function () {
-  function UserForm(parent, model) {
-    var _this = this;
-
-    _classCallCheck(this, UserForm);
+var View =
+/*#__PURE__*/
+function () {
+  function View(parent, model) {
+    _classCallCheck(this, View);
 
     this.parent = parent;
     this.model = model;
-
-    this.onSetNameClick = function () {
-      var input = _this.parent.querySelector("input");
-
-      if (input) {
-        var name = input.value;
-
-        _this.model.set({
-          name: name
-        });
-      }
-
-      ;
-    };
-
-    this.onSetAgeClick = function () {
-      _this.model.setRandomAge();
-    };
-
     this.bindModel();
   }
 
-  _createClass(UserForm, [{
+  _createClass(View, [{
     key: "bindModel",
     value: function bindModel() {
-      var _this2 = this;
+      var _this = this;
 
       this.model.on("change", function () {
-        _this2.render();
+        _this.render();
       });
-    }
-  }, {
-    key: "eventsMap",
-    value: function eventsMap() {
-      return {
-        'click:#set-age': this.onSetAgeClick,
-        'click:#set-name': this.onSetNameClick
-      };
-    }
-  }, {
-    key: "template",
-    value: function template() {
-      return "\n      <div>\n        <h1>User Form</h1>\n        <div>User Name: ".concat(this.model.get("name"), "</div>\n        <div>User Age: ").concat(this.model.get("age"), "</div>\n        <input />\n        <button type=\"button\" id=\"set-name\">Change Name</button>\n        <button type=\"button\" id=\"set-age\">Set Random Age</button>\n      </div>\n    ");
     }
   }, {
     key: "bindEvents",
@@ -226,13 +194,106 @@ var UserForm = /*#__PURE__*/function () {
     }
   }]);
 
-  return UserForm;
+  return View;
 }();
+
+exports.View = View;
+;
+},{}],"src/views/UserForm.ts":[function(require,module,exports) {
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UserForm = void 0;
+
+var View_1 = require("./View");
+
+var UserForm =
+/*#__PURE__*/
+function (_View_1$View) {
+  _inherits(UserForm, _View_1$View);
+
+  var _super = _createSuper(UserForm);
+
+  function UserForm() {
+    var _this;
+
+    _classCallCheck(this, UserForm);
+
+    _this = _super.apply(this, arguments);
+
+    _this.onSetNameClick = function () {
+      var input = _this.parent.querySelector("input");
+
+      if (input) {
+        var name = input.value;
+
+        _this.model.set({
+          name: name
+        });
+      }
+
+      ;
+    };
+
+    _this.onSetAgeClick = function () {
+      _this.model.setRandomAge();
+    };
+
+    return _this;
+  }
+
+  _createClass(UserForm, [{
+    key: "eventsMap",
+    value: function eventsMap() {
+      return {
+        'click:#set-age': this.onSetAgeClick,
+        'click:#set-name': this.onSetNameClick
+      };
+    }
+  }, {
+    key: "template",
+    value: function template() {
+      return "\n      <div>\n        <h1>User Form</h1>\n        <div>User Name: ".concat(this.model.get("name"), "</div>\n        <div>User Age: ").concat(this.model.get("age"), "</div>\n        <input />\n        <button type=\"button\" id=\"set-name\">Change Name</button>\n        <button type=\"button\" id=\"set-age\">Set Random Age</button>\n      </div>\n    ");
+    }
+  }]);
+
+  return UserForm;
+}(View_1.View);
 
 exports.UserForm = UserForm;
 ;
-},{}],"src/models/Model.ts":[function(require,module,exports) {
+},{"./View":"src/views/View.ts"}],"src/models/Model.ts":[function(require,module,exports) {
 "use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -244,9 +305,11 @@ exports.Model = void 0;
 ;
 
 var Model =
-/** @class */
+/*#__PURE__*/
 function () {
   function Model(attributes, sync, events) {
+    _classCallCheck(this, Model);
+
     this.attributes = attributes;
     this.sync = sync;
     this.events = events; // 因為是使用 constructor 一開始的初始化，而不是後來才分配值的方式
@@ -266,36 +329,39 @@ function () {
   // };
 
 
-  Model.prototype.set = function (update) {
-    this.attributes.set(update);
-    this.events.trigger("change");
-  };
-
-  ;
-
-  Model.prototype.fetch = function () {
-    var _this = this;
-
-    var id = this.get("id");
-
-    if (typeof id !== "number") {
-      throw new Error("Cannot fetch without an id");
+  _createClass(Model, [{
+    key: "set",
+    value: function set(update) {
+      this.attributes.set(update);
+      this.events.trigger("change");
     }
+  }, {
+    key: "fetch",
+    value: function fetch() {
+      var _this = this;
 
-    this.sync.fetch(id).then(function (res) {
-      _this.set(res.data);
-    });
-  };
+      var id = this.get("id");
 
-  Model.prototype.save = function () {
-    var _this = this;
+      if (typeof id !== "number") {
+        throw new Error("Cannot fetch without an id");
+      }
 
-    this.sync.save(this.attributes.getAll()).then(function (res) {
-      _this.trigger("save");
-    }).catch(function () {
-      _this.trigger("error");
-    });
-  };
+      this.sync.fetch(id).then(function (res) {
+        _this.set(res.data);
+      });
+    }
+  }, {
+    key: "save",
+    value: function save() {
+      var _this2 = this;
+
+      this.sync.save(this.attributes.getAll()).then(function (res) {
+        _this2.trigger("save");
+      }).catch(function () {
+        _this2.trigger("error");
+      });
+    }
+  }]);
 
   return Model;
 }();
@@ -1419,7 +1485,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-},{"./../utils":"node_modules/axios/lib/utils.js","./../core/settle":"node_modules/axios/lib/core/settle.js","./../helpers/cookies":"node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"node_modules/axios/lib/core/createError.js","../defaults/transitional":"node_modules/axios/lib/defaults/transitional.js","../cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js"}],"../../../../usr/local/Cellar/nvm/0.38.0/versions/node/v14.18.0/lib/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
+},{"./../utils":"node_modules/axios/lib/utils.js","./../core/settle":"node_modules/axios/lib/core/settle.js","./../helpers/cookies":"node_modules/axios/lib/helpers/cookies.js","./../helpers/buildURL":"node_modules/axios/lib/helpers/buildURL.js","../core/buildFullPath":"node_modules/axios/lib/core/buildFullPath.js","./../helpers/parseHeaders":"node_modules/axios/lib/helpers/parseHeaders.js","./../helpers/isURLSameOrigin":"node_modules/axios/lib/helpers/isURLSameOrigin.js","../core/createError":"node_modules/axios/lib/core/createError.js","../defaults/transitional":"node_modules/axios/lib/defaults/transitional.js","../cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js":[function(require,module,exports) {
 
 // shim for using process in browser
 var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
@@ -1762,7 +1828,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-},{"../utils":"node_modules/axios/lib/utils.js","../helpers/normalizeHeaderName":"node_modules/axios/lib/helpers/normalizeHeaderName.js","../core/enhanceError":"node_modules/axios/lib/core/enhanceError.js","./transitional":"node_modules/axios/lib/defaults/transitional.js","../adapters/xhr":"node_modules/axios/lib/adapters/xhr.js","../adapters/http":"node_modules/axios/lib/adapters/xhr.js","process":"../../../../usr/local/Cellar/nvm/0.38.0/versions/node/v14.18.0/lib/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/axios/lib/core/transformData.js":[function(require,module,exports) {
+},{"../utils":"node_modules/axios/lib/utils.js","../helpers/normalizeHeaderName":"node_modules/axios/lib/helpers/normalizeHeaderName.js","../core/enhanceError":"node_modules/axios/lib/core/enhanceError.js","./transitional":"node_modules/axios/lib/defaults/transitional.js","../adapters/xhr":"node_modules/axios/lib/adapters/xhr.js","../adapters/http":"node_modules/axios/lib/adapters/xhr.js","process":"../../AppData/Roaming/npm/node_modules/parcel-bundler/node_modules/process/browser.js"}],"node_modules/axios/lib/core/transformData.js":[function(require,module,exports) {
 'use strict';
 
 var utils = require('./../utils');
@@ -2450,6 +2516,12 @@ module.exports = require('./lib/axios');
 },{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/models/ApiSync.ts":[function(require,module,exports) {
 "use strict";
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -2466,32 +2538,33 @@ var axios_1 = __importDefault(require("axios"));
 ;
 
 var ApiSync =
-/** @class */
+/*#__PURE__*/
 function () {
   function ApiSync(rootUrl) {
+    _classCallCheck(this, ApiSync);
+
     this.rootUrl = rootUrl;
   }
 
-  ;
-
-  ApiSync.prototype.fetch = function (id) {
-    return axios_1.default.get("".concat(this.rootUrl, "/").concat(id));
-  };
-
-  ;
-
-  ApiSync.prototype.save = function (data) {
-    var id = data.id; // 如果有 id 那代表該 User 已經存在資料庫，put更改既有資料
-    // 反之新增一筆 User 資料
-
-    if (id) {
-      return axios_1.default.put("".concat(this.rootUrl, "/").concat(id), data);
-    } else {
-      return axios_1.default.post(this.rootUrl, data);
+  _createClass(ApiSync, [{
+    key: "fetch",
+    value: function fetch(id) {
+      return axios_1.default.get("".concat(this.rootUrl, "/").concat(id));
     }
-  };
+  }, {
+    key: "save",
+    value: function save(data) {
+      var id = data.id; // 如果有 id 那代表該 User 已經存在資料庫，put更改既有資料
+      // 反之新增一筆 User 資料
 
-  ;
+      if (id) {
+        return axios_1.default.put("".concat(this.rootUrl, "/").concat(id), data);
+      } else {
+        return axios_1.default.post(this.rootUrl, data);
+      }
+    }
+  }]);
+
   return ApiSync;
 }();
 
@@ -2539,6 +2612,12 @@ exports.Eventing = Eventing;
 },{}],"src/models/Collection.ts":[function(require,module,exports) {
 "use strict";
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -2555,42 +2634,41 @@ var axios_1 = __importDefault(require("axios"));
 var Eventing_1 = require("./Eventing");
 
 var Collection =
-/** @class */
+/*#__PURE__*/
 function () {
   function Collection(rootUrl, deserialize) {
+    _classCallCheck(this, Collection);
+
     this.rootUrl = rootUrl;
     this.deserialize = deserialize;
     this.models = [];
     this.events = new Eventing_1.Eventing();
   }
 
-  ;
-  Object.defineProperty(Collection.prototype, "on", {
+  _createClass(Collection, [{
+    key: "on",
     get: function get() {
       return this.events.on;
-    },
-    enumerable: false,
-    configurable: true
-  });
-  Object.defineProperty(Collection.prototype, "trigger", {
+    }
+  }, {
+    key: "trigger",
     get: function get() {
       return this.events.trigger;
-    },
-    enumerable: false,
-    configurable: true
-  });
+    }
+  }, {
+    key: "fetch",
+    value: function fetch() {
+      var _this = this;
 
-  Collection.prototype.fetch = function () {
-    var _this = this;
+      axios_1.default.get(this.rootUrl).then(function (res) {
+        res.data.forEach(function (value) {
+          _this.models.push(_this.deserialize(value));
+        });
 
-    axios_1.default.get(this.rootUrl).then(function (res) {
-      res.data.forEach(function (value) {
-        _this.models.push(_this.deserialize(value));
+        _this.trigger("change");
       });
-
-      _this.trigger("change");
-    });
-  };
+    }
+  }]);
 
   return Collection;
 }();
@@ -2600,33 +2678,27 @@ exports.Collection = Collection;
 },{"axios":"node_modules/axios/index.js","./Eventing":"src/models/Eventing.ts"}],"src/models/User.ts":[function(require,module,exports) {
 "use strict";
 
-var __extends = this && this.__extends || function () {
-  var _extendStatics = function extendStatics(d, b) {
-    _extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) {
-        if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-      }
-    };
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-    return _extendStatics(d, b);
-  };
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  return function (d, b) {
-    if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-    _extendStatics(d, b);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-    function __() {
-      this.constructor = d;
-    }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -2647,36 +2719,40 @@ var Collection_1 = require("./Collection");
 var rootUrl = "http://localhost:3000/users";
 
 var User =
-/** @class */
-function (_super) {
-  __extends(User, _super);
+/*#__PURE__*/
+function (_Model_1$Model) {
+  _inherits(User, _Model_1$Model);
+
+  var _super = _createSuper(User);
 
   function User() {
-    return _super !== null && _super.apply(this, arguments) || this;
+    _classCallCheck(this, User);
+
+    return _super.apply(this, arguments);
   }
 
-  User.buildUser = function (attrs) {
-    return new User(new Attributes_1.Attributes(attrs), new ApiSync_1.ApiSync(rootUrl), new Eventing_1.Eventing());
-  };
+  _createClass(User, [{
+    key: "setRandomAge",
+    value: function setRandomAge() {
+      var age = Math.round(Math.random() * 100);
+      this.set({
+        age: age
+      });
+    }
+  }], [{
+    key: "buildUser",
+    value: function buildUser(attrs) {
+      return new User(new Attributes_1.Attributes(attrs), new ApiSync_1.ApiSync(rootUrl), new Eventing_1.Eventing());
+    }
+  }, {
+    key: "buildUserCollection",
+    value: function buildUserCollection() {
+      return new Collection_1.Collection(rootUrl, function (json) {
+        return User.buildUser(json);
+      });
+    }
+  }]);
 
-  ;
-
-  User.buildUserCollection = function () {
-    return new Collection_1.Collection(rootUrl, function (json) {
-      return User.buildUser(json);
-    });
-  };
-
-  ;
-
-  User.prototype.setRandomAge = function () {
-    var age = Math.round(Math.random() * 100);
-    this.set({
-      age: age
-    });
-  };
-
-  ;
   return User;
 }(Model_1.Model);
 
@@ -2705,7 +2781,7 @@ if (root) {
 } else {
   throw new Error("Root element not found");
 }
-},{"./views/UserForm":"src/views/UserForm.ts","./models/User":"src/models/User.ts"}],"../../../../usr/local/Cellar/nvm/0.38.0/versions/node/v14.18.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./views/UserForm":"src/views/UserForm.ts","./models/User":"src/models/User.ts"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2733,7 +2809,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50558" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "6328" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -2764,9 +2840,8 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
         assetsToAccept.forEach(function (v) {
           hmrAcceptRun(v[0], v[1]);
         });
-      } else if (location.reload) {
-        // `location` global exists in a web worker context but lacks `.reload()` function.
-        location.reload();
+      } else {
+        window.location.reload();
       }
     }
 
@@ -2909,5 +2984,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../usr/local/Cellar/nvm/0.38.0/versions/node/v14.18.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.ts"], null)
+},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/index.ts"], null)
 //# sourceMappingURL=/src.f10117fe.js.map
